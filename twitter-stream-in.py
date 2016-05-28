@@ -14,12 +14,17 @@ class listener(StreamListener):
 
   def on_data(self, data):
     try:
-      with open('python.json', 'a') as f:
-        f.write(data)
-        return True
+      text=data["text"]
+      user="%s (@%s)"%(data["user"]["name"],data["user"]["screen_name"])
+      date=data["created_at"]
+      avatar=data["user"]["profile_image_url"].replace("\/","/")
+
+      updatescreen(date,user,text,avatar)
     except BaseException as e:
-      print("Error on_data: %s" % str(e))
-    return True
+      with open('./log', 'a') as f:
+        print("\n----------------------\nError on_data: %s\n" % str(e))
+    finally:
+      return True
 
   def on_error(self, status):
     print(status)
