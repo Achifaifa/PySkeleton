@@ -35,10 +35,10 @@ class listener(StreamListener):
 # twitter_stream.filter(track=['#GasteizMakerDay'])
 # 
 
-testdata=[["date1", "user1", "text1", "avatar1"], ["date1", "user1", "text1", "avatar1"],["date1", "user1", "text1", "avatar1"], ["date1", "user1", "text1", "avatar1"]]
+testdata=[["2015-20-20 :: 13:37:04", "@blaubleublue", "Complex system replacements feel like like they'll be simpler and faster to build. But that is because human brains can only hold cartoons.", "avatar1"], ["date2", "user2", "Complex system replacements feel like like they'll be simpler and faster to build. But that is because human brains can only hold cartoons.", "avatar2"],["date3", "user3", "Complex system replacements feel like like they'll be simpler and faster to build. But that is because human brains can only hold cartoons.", "avatar3"], ["date4", "user4", "Complex system replacements feel like like they'll be simpler and faster to build. But that is because human brains can only hold cartoons.", "avatar4"]]
 
 w=windows.update_window()
 w.send(None)
 for i in testdata: 
-  w.send((testdata[0],testdata[1],testdata[2],testdata[3]))
+  w.send(i)
   import time; time.sleep(3)
