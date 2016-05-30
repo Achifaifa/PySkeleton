@@ -20,6 +20,7 @@ class listener(StreamListener):
       data=json.loads(data)
 
       text=data["text"]
+      text="\n".join([i if i for i in text.split("\n")])
       user="%s (@%s)"%(data["user"]["name"],data["user"]["screen_name"])
       date=data["created_at"]
 
@@ -33,8 +34,7 @@ class listener(StreamListener):
 
     except BaseException as e:
 
-      with open('./log', 'a') as f:
-        print("\n----------------------\nError on_data: %s" % str(e))
+      print("----------------------\n",e)
 
     finally:
 
@@ -45,14 +45,4 @@ class listener(StreamListener):
     return True
 
 twitter_stream = Stream(auth, listener())
-twitter_stream.filter(track=['#followback'])
-# 
-
-# testdata=[["2015-20-20 :: 13:37:04", "@blaubleublue", "Complex system replacements feel like like they'll be simpler and faster to build. But that is because human brains can only hold cartoons.", "avatar1"], 
-# ["2015-20-20 :: 13:37:10", "@trex", "buy my new shirt, 'i object to the use of the word waifu, but i think you are welcome to like any anime cutie you want'", "avatar2"],
-# ["2015-20-20 :: 13:39:11", "@amazewalls", "Coroutines and generators are awesome", "avatar3"], 
-# ["2015-20-20 :: 13:47:44", "@totallynotabot", "Beautiful new large-scale brain etchings from the fantastic Gregg Dun thepipetteer.com/self-reflected... pic.twitter.com/SNFkSgoUkw", "avatar4"]]
-
-# for i in testdata: 
-#   w.send(i)
-#   import time; time.sleep(10)
+twitter_stream.filter(track=['#gasteizmakerday'])
