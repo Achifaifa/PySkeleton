@@ -17,18 +17,21 @@ def update_window():
   # photo=Tkinter.Label(image=defaultimg, width=100, height=100)
   # photo.image=defaultimg
   name=Tkinter.Label(text="", font=bigfont)
+  username=Tkinter.Label(text="", font=bigishfont)
   date=Tkinter.Label(text="", font=bigishfont)
   tweet=Tkinter.Label(text="", font=smallfont, wraplength=800, justify="left")
   # photo.pack()
   name.pack(side="top", padx=10, fill="x")
+  username.pack(side="top", padx=10, fill="x")
   date.pack(side="top", padx=10, fill="x")
   tweet.pack(side="top", padx=10, fill="x")
   root.update()
 
   while 1:
 
-    timestamp,user,text = yield #, avatar
-    name.config(text=user)
+    timestamp,user,username,text = yield #, avatar
+    name.config(text="\n",user)
+    username.config(text=username)
     date.config(text=timestamp+"\n")
     tweet.config(text=text)
     # try:

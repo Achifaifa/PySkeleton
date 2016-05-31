@@ -21,7 +21,8 @@ class listener(StreamListener):
 
       text=data["text"]
       text="\n".join([i if i for i in text.split("\n")])
-      user="%s (@%s)"%(data["user"]["name"],data["user"]["screen_name"])
+      user=data["user"]["name"]
+      username=data["user"]["screen_name"]
       date=data["created_at"]
 
       # Get image
@@ -30,7 +31,7 @@ class listener(StreamListener):
       # zz=os.system("wget %s -o avatar 2> /dev/null"%avatar)
       # avatar="avatar" if not zz else "init.jpg"
 
-      w.send((date,user,text))#,avatar))
+      w.send((date,user,username,text))#,avatar))
       for i in range(3)
         a.send("0,255,0")
         time.sleep(0.5)
