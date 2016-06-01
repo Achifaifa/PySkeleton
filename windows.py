@@ -24,9 +24,9 @@ def sendblinks():
   while 1:
     try: 
       a.write("0,255,0\n")
-      time.sleep(1)
+      time.sleep(0.5)
       a.write("255,255,255\n")
-      time.sleep(1)
+      time.sleep(0.5)
     except Exception as e: print e
     yield 1
 
@@ -52,17 +52,20 @@ def update_window():
 
   while 1:
 
-    timestamp,user,username,text = yield #, avatar
-    timestamp=" ".join(timestamp.split()[1:4])
-    handle.config(text="\n"+user)
-    handlename.config(text="@"+username)
-    date.config(text=timestamp+"\n")
-    tweet.config(text=text)
+    try: 
+      timestamp,user,username,text = yield #, avatar
+      timestamp=" ".join(timestamp.split()[1:4])
+      handle.config(text="\n"+user)
+      handlename.config(text="@"+username)
+      date.config(text=timestamp+"\n")
+      tweet.config(text=text)
+
     # try:
     #   photo.config(image=Image.open(avatar))
     # except: 
     #   photo.config(image=defaultimg)
-    root.update()
-    b.next()
+      root.update()
+      b.next()
+    except: pass
     
  

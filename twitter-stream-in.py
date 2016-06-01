@@ -36,7 +36,7 @@ class listener(StreamListener):
       
     
     except BaseException as e:
-      print("----------------------\n",e)
+      print "----------------------\n",e
 
     finally:
       return True
@@ -47,4 +47,4 @@ class listener(StreamListener):
     return True
 
 twitter_stream = Stream(auth, listener())
-twitter_stream.filter(track=['#gasteizmakerdaytest'])
+twitter_stream.filter(track=['#followback'])
