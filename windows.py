@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import tkFont, Tkinter
+import serial, time, tkFont, Tkinter
 from PIL import Image, ImageTk
 
 # Windows is created when importing this module
@@ -11,18 +11,41 @@ bigishfont=tkFont.Font(root=root, font=None, name=None, family='Mono', size=26, 
 smallfont=tkFont.Font(root=root, font=None, name=None, family='Mono', size=25)
 Tkinter.mainloop(1) 
 
+# Set up serial port
+a=serial.Serial()
+a.setBaudrate=(9600)
+a.setPort("/dev/ttyACM0")
+a.open()
+a.write("255,255,255\n")
+
+def sendblinks():
+
+  a.write("255,255,255\n")
+  while 1:
+    try: 
+      a.write("0,255,0\n")
+      time.sleep(1)
+      a.write("255,255,255\n")
+      time.sleep(1)
+    except Exception as e: print e
+    yield 1
+
+# Set blinker
+b=sendblinks()
+b.next()
+
 def update_window():
 
   # defaultimg=ImageTk.PhotoImage(Image.open("./init.jpg"))
   # photo=Tkinter.Label(image=defaultimg, width=100, height=100)
   # photo.image=defaultimg
-  name=Tkinter.Label(text="", font=bigfont)
-  username=Tkinter.Label(text="", font=bigishfont)
+  handle=Tkinter.Label(text="", font=bigfont)
+  handlename=Tkinter.Label(text="", font=bigishfont)
   date=Tkinter.Label(text="", font=bigishfont)
   tweet=Tkinter.Label(text="", font=smallfont, wraplength=800, justify="left")
   # photo.pack()
-  name.pack(side="top", padx=10, fill="x")
-  username.pack(side="top", padx=10, fill="x")
+  handle.pack(side="top", padx=10, fill="x")
+  handlename.pack(side="top", padx=10, fill="x")
   date.pack(side="top", padx=10, fill="x")
   tweet.pack(side="top", padx=10, fill="x")
   root.update()
@@ -30,8 +53,9 @@ def update_window():
   while 1:
 
     timestamp,user,username,text = yield #, avatar
-    name.config(text="\n",user)
-    username.config(text=username)
+    timestamp=" ".join(timestamp.split()[1:4])
+    handle.config(text="\n"+user)
+    handlename.config(text="@"+username)
     date.config(text=timestamp+"\n")
     tweet.config(text=text)
     # try:
@@ -39,5 +63,6 @@ def update_window():
     # except: 
     #   photo.config(image=defaultimg)
     root.update()
+    b.next()
     
  
