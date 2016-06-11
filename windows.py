@@ -20,19 +20,14 @@ a.write("255,255,255\n")
 
 def sendblinks():
 
-  a.write("255,255,255\n")
-  while 1:
-    try: 
-      a.write("0,255,0\n")
-      time.sleep(0.5)
-      a.write("255,255,255\n")
-      time.sleep(0.5)
-    except Exception as e: print e
-    yield 1
+  try: 
+    a.write("0,255,0\n")
+    time.sleep(1)
+    a.write("255,255,255\n")
+    time.sleep(1)
+  except Exception as e: print e
 
-# Set blinker
-b=sendblinks()
-b.next()
+sendblinks()
 
 def update_window():
 
@@ -65,7 +60,7 @@ def update_window():
     # except: 
     #   photo.config(image=defaultimg)
       root.update()
-      b.next()
+      sendblinks()
     except: pass
     
  
